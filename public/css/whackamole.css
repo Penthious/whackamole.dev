@@ -1,4 +1,6 @@
-
+body{
+  background-color: grey;
+}
 #timer{
     font-size:3em;
 }
@@ -43,4 +45,3 @@
 .moleImgs{
     background: url("/imgs/images.jpeg") center/contain no-repeat;
 }
-

@@ -1,6 +1,17 @@
 var moleArray = [];
 var moleIndex = 0;
 var timeRemaining;
+var randomSetNumber;
+var scoreNumber = 0;
+var randomNumber;
+
+
+$('#startGame').on('click',function(){
+  getMoleImg();
+})
+
+
+//count down for the counter
  $('#gameTime').change(function(){
      timeRemaining = $('#gameTime').val();
 });
@@ -14,47 +25,73 @@ var counterRemaining = setInterval(function(){
     timeRemaining--;
 
 },1000);
-function getUserInput(){
-    $('.moleHoles').on('click',function(){
-        $(this).addClass('moleImgs');
 
-    })
+
+
+var currentMole = moleArray[moleIndex];
+if (moleIndex == moleArray.length) {
+
 }
+
+
+
 
 function getRandomNumber(){
-    randomNumber = Math.floor(Math.random() * $('.moleHoles').length);
-    moleArray.push(randomNumber);
+    randomSetNumber = Math.floor(Math.random() * $('.moleHoles').length);
+    for (var i = 0; i < moleArray.length; i++) {
+      if (randomSetNumber != moleArray[i] ) {
+       randomNumber = randomSetNumber;
+      }else {
+
+      }
+    }
 }
+
+
 
 function getMoleHole(){
     setInterval(function(){
         getRandomNumber();
-    },3000);
-console.log(moleArray);
-    getUserInput();
+        moleArray.push(randomNumber);
+    },1000);
+   console.log(moleArray[moleIndex]);
+    return moleArray;
 }
+
+
+
+
 
 function getMoleImg(){
-    moleIndex = 0;
-    var moleSpawn = moleArray[moleIndex];
-    console.log(moleSpawn);
-    if(moleArray.length > 0){
+    getMoleHole();
+    getUserInput();
+    setInterval(function(){
+      var moleSpawn = moleArray[moleIndex];
+      console.log(moleSpawn);
+      if(moleArray.length > 0){
         moleIndex++;
-    }
+        console.log(moleSpawn);
+        $("div[data-id='" + moleSpawn + "']").toggleClass('moleImgs',1000);
+      }
+
+
+
+    },1000);
+
 
 }
 
 
-for (var i = 0; i < counterRemaining.length; i++) {
-    var obj = counterRemaining[i];
-    
-}
+
+
+
+
 
 
 
 
 function factorialize(num) {
-    var number = 0;
+    var number = [];
     for(var i = 1; i <= num; i++){
         number.push(i);
         console.log("this is i:  "+ number);
@@ -63,3 +100,14 @@ function factorialize(num) {
 }
 
 factorialize(5);
+
+function getUserInput(){
+  $('.moleHoles').on('click',function(){
+    if ($(this).hasClass('moleImgs')) {
+      $(this).removeClass('moleImgs');
+      scoreNumber++;
+      $('#scoreCount').html("Score:" + scoreNumber);
+    }
+
+  });
+}
